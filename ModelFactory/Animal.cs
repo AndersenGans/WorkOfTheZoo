@@ -23,7 +23,9 @@ namespace ModelFactory
             get => currentHealth;
             set
             {
-                if (currentHealth < fullHealth && AnimalCondition != Condition.WasDead)
+                if(currentHealth == 0)
+                    AnimalCondition = Condition.WasDead;
+                else if (currentHealth < fullHealth && AnimalCondition != Condition.WasDead)
                     currentHealth = value;
             }
         }
@@ -46,6 +48,7 @@ namespace ModelFactory
         {
             if (AnimalName == animalName)
             {
+                AnimalCondition = Condition.IsFull;
                 return String.Format("'{1}' was fed.", animalName);
             }
             return String.Format("There is no animal with name like '{1}'.", animalName);
@@ -66,6 +69,10 @@ namespace ModelFactory
             if (AnimalName == animalName && AnimalCondition == Condition.WasDead)
             {
                 return String.Format("'{1}' was deleted.", animalName);
+            }
+            if (AnimalCondition != Condition.WasDead)
+            {
+                return String.Format("'{1}' is alive. You can't delete it.", animalName);
             }
             return String.Format("There is no animal with name like '{1}'.", animalName);
         }
