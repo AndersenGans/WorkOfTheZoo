@@ -1,0 +1,6 @@
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\bin\Debug\Work of the Zoo.exe.config
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\bin\Debug\Work of the Zoo.exe
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\bin\Debug\Work of the Zoo.pdb
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\obj\Debug\Work of the Zoo.csprojResolveAssemblyReference.cache
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\obj\Debug\Work of the Zoo.exe
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\obj\Debug\Work of the Zoo.pdb
