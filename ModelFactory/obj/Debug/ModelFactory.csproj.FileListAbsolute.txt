@@ -1,0 +1,5 @@
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\ModelFactory\bin\Debug\ModelFactory.dll
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\ModelFactory\bin\Debug\ModelFactory.pdb
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\ModelFactory\obj\Debug\ModelFactory.csprojResolveAssemblyReference.cache
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\ModelFactory\obj\Debug\ModelFactory.dll
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\ModelFactory\obj\Debug\ModelFactory.pdb
