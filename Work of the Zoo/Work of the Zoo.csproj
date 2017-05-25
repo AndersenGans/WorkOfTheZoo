@@ -75,5 +75,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Controll of the Zoo\Controll of the Zoo.csproj">
+      <Project>{c058d571-b664-4eeb-a680-cc48bf45cf51}</Project>
+      <Name>Controll of the Zoo</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

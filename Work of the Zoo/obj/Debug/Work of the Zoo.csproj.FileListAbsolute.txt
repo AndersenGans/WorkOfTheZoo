@@ -4,3 +4,7 @@ C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\bin\Debug\Work 
 C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\obj\Debug\Work of the Zoo.csprojResolveAssemblyReference.cache
 C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\obj\Debug\Work of the Zoo.exe
 C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\obj\Debug\Work of the Zoo.pdb
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\bin\Debug\Controll of the Zoo.dll
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\bin\Debug\ModelFactory.dll
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\bin\Debug\Controll of the Zoo.pdb
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Work of the Zoo\bin\Debug\ModelFactory.pdb
