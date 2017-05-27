@@ -79,5 +79,10 @@ namespace ModelFactory
             }
             return String.Format("There is no animal with name like '{0}'.", animalName);
         }
+
+        public override string ToString()
+        {
+            return $"{AnimalName} ({AnimalKind}) {AnimalCondition} and has {CurrentHealth} points of health";
+        }
     }
 }

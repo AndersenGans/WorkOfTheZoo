@@ -21,7 +21,13 @@ namespace Controll_of_the_Zoo
                 string helpMessage = "\n\t-write 'add' to add an animal; \n\t-write 'feed' to feed an animal; \n" +
                                      "\t-write 'cure' to cure an animal;\n\t-write 'delete' to delete an animal.\n" +
                                      "\t-to open Zoo write 'run'.\n\t-to close Zoo write 'close'.\n\t-to get help write 'help'." +
-                                     "\n\t-to clean console write 'clean'.\n\t-to exit write 'exit'.\n";
+                                     "\n\t-to clean console write 'clean'.\n\t-to exit write 'exit'.\n" +
+                                     "\t-to add animals to test write 'test'\n\n" +
+                                     "Linq commands:\n" +
+                                     "\t-write 'groupByKind' to group anamals by kind.\n" +
+                                     "\t-write 'selectByCond' to select animals by concrete condition.\n" +
+                                     "\t-write 'sickTigers' to select sick tigers.\n" +
+                                     "\t-write 'findEleph' to find elephants by name.\n";
                 Console.Write(helpMessage);
                 while (true)
                 {
@@ -75,6 +81,21 @@ namespace Controll_of_the_Zoo
                             Console.Write(helpMessage);
                             break;
                         case "exit": return;
+                        case "test":
+                            AddNewAnimalsForTest.AddNewAnimals(Animals);
+                            break;
+                        case "groupByKind":
+                            WorkWithLINQ.GroupByKindOfAnimals(Animals);
+                            break;
+                        case "selectByCond":
+                            WorkWithLINQ.AnimalByCondition(Animals,SelectCondition());
+                            break;
+                        case "sickTigers": WorkWithLINQ.TigersAreIll(Animals);
+                            break;
+                        case "findEleph":
+                            Console.Write("Write animal name: ");
+                            WorkWithLINQ.SelectConcreteElephant(Animals, Console.ReadLine());
+                            break;
                         default:
                             Console.WriteLine("Unknown command. Write 'help' if you don't know commands.");
                             break;
@@ -89,6 +110,23 @@ namespace Controll_of_the_Zoo
             catch (Exception ex)
             {
                 Console.WriteLine("ERROR IN Working(): " + ex.Message);
+            }
+        }
+
+        private Animal.Condition SelectCondition()
+        {
+            Console.Write("Enter animal condition (full, hungry, ill, dead):");
+            var condition = Console.ReadLine();
+            switch (condition)
+            {
+                case "full": return Animal.Condition.IsFull;
+                case "hungry": return Animal.Condition.IsHungry;
+                case "ill": return Animal.Condition.IsIll;
+                case "dead": return Animal.Condition.WasDead;
+                default:
+                    Console.WriteLine("Unknown command. Write 'help' if you don't know commands. We selected 'full'.");
+                    return Animal.Condition.IsFull;
+                    break;
             }
         }
 

@@ -40,8 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddNewAnimalsForTest.cs" />
     <Compile Include="WorkOfZoo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorkWithLINQ.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ModelFactory\ModelFactory.csproj">
