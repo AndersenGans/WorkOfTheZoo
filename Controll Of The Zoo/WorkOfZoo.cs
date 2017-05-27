@@ -27,7 +27,10 @@ namespace Controll_of_the_Zoo
                                      "\t-write 'groupByKind' to group anamals by kind.\n" +
                                      "\t-write 'selectByCond' to select animals by concrete condition.\n" +
                                      "\t-write 'sickTigers' to select sick tigers.\n" +
-                                     "\t-write 'findEleph' to find elephants by name.\n";
+                                     "\t-write 'findEleph' to find elephants by name.\n" +
+                                     "\t-wrute 'hungryAnim' to select hungry animals.\n" +
+                                     "\t-write 'healthyAnim' to select most healthy animals grouped by kind.\n" +
+                                     "\t-write 'diedAnim' to sekect died animals grouped by kind.\n";
                 Console.Write(helpMessage);
                 while (true)
                 {
@@ -88,13 +91,23 @@ namespace Controll_of_the_Zoo
                             WorkWithLINQ.GroupByKindOfAnimals(Animals);
                             break;
                         case "selectByCond":
-                            WorkWithLINQ.AnimalByCondition(Animals,SelectCondition());
+                            WorkWithLINQ.AnimalByCondition(Animals, SelectCondition());
                             break;
-                        case "sickTigers": WorkWithLINQ.TigersAreIll(Animals);
+                        case "sickTigers":
+                            WorkWithLINQ.TigersAreIll(Animals);
                             break;
                         case "findEleph":
                             Console.Write("Write animal name: ");
                             WorkWithLINQ.SelectConcreteElephant(Animals, Console.ReadLine());
+                            break;
+                        case "hungryAnim":
+                            WorkWithLINQ.HungryAnimals(Animals);
+                            break;
+                        case "healthyAnim":
+                            WorkWithLINQ.MostHealthyAnimalsByKind(Animals);
+                            break;
+                        case "diedAnim":
+                            WorkWithLINQ.CountDiedAnimals(Animals);
                             break;
                         default:
                             Console.WriteLine("Unknown command. Write 'help' if you don't know commands.");

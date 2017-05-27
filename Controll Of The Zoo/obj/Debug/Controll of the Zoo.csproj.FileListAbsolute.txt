@@ -5,3 +5,4 @@ C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Controll of the Zoo\bin\Debug\M
 C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Controll of the Zoo\obj\Debug\Controll of the Zoo.csprojResolveAssemblyReference.cache
 C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Controll of the Zoo\obj\Debug\Controll of the Zoo.dll
 C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Controll of the Zoo\obj\Debug\Controll of the Zoo.pdb
+C:\Users\lemen\Desktop\SecondLesson\WorkOfTheZoo\Controll of the Zoo\bin\Debug\System.ValueTuple.dll
