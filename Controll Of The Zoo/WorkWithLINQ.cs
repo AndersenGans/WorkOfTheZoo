@@ -5,30 +5,33 @@ using ModelFactory;
 
 namespace Controll_of_the_Zoo
 {
-    public static class WorkWithLINQ
+    public class WorkWithLINQ
     {
-        public static void ShowAnimals<T>(IEnumerable<T> animals)
+        public void ShowAnimals<T>(IEnumerable<T> animals)
         {
-            if (!animals.Any())
-            {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
-            }
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
+
             foreach (var animal in animals)
             {
                 Console.WriteLine($"\t{animal}");
             }
         }
 
-        public static void GroupByKindOfAnimals(List<Animal> animals)
+        private bool IsAnyAnimals<T>(IEnumerable<T> animals, string message)
         {
             if (!animals.Any())
             {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
+                Console.WriteLine(message);
+                return false;
             }
+            return true;
+        }
+
+        public void GroupByKindOfAnimals(List<Animal> animals)
+        {
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
+
             var groupAnimals = animals.GroupBy(animal => animal.AnimalKind, x => x.AnimalName);
-            Console.WriteLine();
             foreach (var animal in groupAnimals)
             {
                 Console.WriteLine($"{animal.Key} has animals:");
@@ -36,96 +39,78 @@ namespace Controll_of_the_Zoo
             }
         }
 
-        public static void AnimalByCondition(List<Animal> animals, Animal.Condition condition)
+        public void AnimalByCondition(List<Animal> animals, Animal.Condition condition)
         {
-            if (!animals.Any())
-            {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
-            }
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
+
             var conditionAnimals = animals.Where(animal => animal.AnimalCondition == condition);
+
+            if (!IsAnyAnimals(conditionAnimals, $"There is no animals with condition '{condition}'.")) return;
+
             ShowAnimals(conditionAnimals);
         }
 
-        public static void TigersAreIll(List<Animal> animals)
+        public void TigersAreIll(List<Animal> animals)
         {
-            if (!animals.Any())
-            {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
-            }
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
+
             var illTigers = animals
-                .Where(animal => animal.AnimalKind == "tiger" && animal.AnimalCondition == Animal.Condition.IsIll)
-                .Select(animal => animal.AnimalName);
-            if (!illTigers.Any())
-            {
-                Console.WriteLine("There are no sick tigers.");
-                return;
-            }
+                .Where(animal => animal.AnimalKind == "tiger" && animal.AnimalCondition == Animal.Condition.IsIll);
+
+            if (!IsAnyAnimals(illTigers, "There are no sick tigers.")) return;
+
             Console.WriteLine("Tigers are sick:");
             ShowAnimals(illTigers);
         }
 
-        public static void SelectConcreteElephant(List<Animal> animals, string animalName)
+        public void SelectConcreteElephant(List<Animal> animals, string animalName)
         {
-            if (!animals.Any())
-            {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
-            }
-            var elephant = animals
-                .Where(animal => animal.AnimalName == animalName && animal.AnimalKind == "elephant")
-                .Select(animal => animal);
-            if (!elephant.Any())
-            {
-                Console.WriteLine($"There is no elephants with name {animalName}");
-                return;
-            }
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
+
+            var elephants = animals
+                .Where(animal => animal.AnimalName == animalName && animal.AnimalKind == "elephant");
+
+            if (!IsAnyAnimals(elephants, $"There is no elephants with name {animalName}.")) return;
+
             Console.WriteLine("Finded elephants:");
-            ShowAnimals(elephant);
+            ShowAnimals(elephants);
         }
 
-        public static void HungryAnimals(List<Animal> animals)
+        public void HungryAnimals(List<Animal> animals)
         {
-            if (!animals.Any())
-            {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
-            }
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
+
             var hungryAnimals = animals.Where(animal => animal.AnimalCondition == Animal.Condition.IsHungry)
                 .Select(animal => animal.AnimalName);
-            if (!hungryAnimals.Any())
-            {
-                Console.WriteLine($"There is no hungry animals.");
-                return;
-            }
+
+            if (!IsAnyAnimals(hungryAnimals, "There is no hungry animals.")) return;
+
             Console.WriteLine("Hungry animals:");
             ShowAnimals(hungryAnimals);
         }
 
-        public static void MostHealthyAnimalsByKind(List<Animal> animals)
+        public void MostHealthyAnimalsByKind(List<Animal> animals)
         {
-            if (!animals.Any())
-            {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
-            }
-            //сначала группируем животных по виду (groupAnimals - одна группа)
-            var healthyAnimals = animals.GroupBy(animal => animal.AnimalKind, groupAnimals => groupAnimals)
-                //дальше выбираем из каждой группы первого (animalList.First(...) - первый из группы)
-                .Select(animalList => animalList.First(
-                    //у которого текущее здоровье (CurrentHealth) максимальное из всей группы (из animalList)
-                    mostHealthAnimal => mostHealthAnimal.CurrentHealth ==
-                                        animalList.Max(health => health.CurrentHealth)));
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
 
-            //ЛИБО С ПОМОЩЬЮ ЗАПРОСА 
-            //var healthyAnimals = from animal in animals
-            //    group animal by animal.AnimalKind
-            //    into animalList
-            //    select (from firstAnimal in animalList
-            //        where firstAnimal.CurrentHealth == (from mostHealthAnimal in animalList
-            //                  select mostHealthAnimal.CurrentHealth).Max()
-            //        select firstAnimal).First();
+            //ЛИБО С ПОМОЩЬЮ ЗАПРОСА
+            var healthyAnimals = from animal in animals
+                group animal by animal.AnimalKind
+                into animalList
+                select (from firstAnimal in animalList
+                    where firstAnimal.CurrentHealth == (from mostHealthAnimal in animalList
+                              select mostHealthAnimal.CurrentHealth).Max()
+                    orderby firstAnimal.AnimalName
+                    select firstAnimal).First();
+
+            ////ЛИБО С ПОМОЩЬЮ ЦЕПОЧКИ
+            ////сначала группируем животных по виду (groupAnimals - одна группа)
+            //var healthyAnimals = animals.GroupBy(animal => animal.AnimalKind, groupAnimals => groupAnimals)
+            //    //дальше выбираем из каждой группы первого отсортированного (animalList.First(...) - первый из группы)
+            //    .Select(animalList => animalList.OrderBy(order => order.AnimalName).First(
+            //        //у которого текущее здоровье (CurrentHealth) максимальное из всей группы (из animalList)
+            //        mostHealthAnimal => mostHealthAnimal.CurrentHealth ==
+            //                            animalList.Max(health => health.CurrentHealth)));
 
             Console.WriteLine("Animals with better health grouped by kind:");
             foreach (var animal in healthyAnimals)
@@ -135,13 +120,9 @@ namespace Controll_of_the_Zoo
             }
         }
 
-        public static void CountDiedAnimals(List<Animal> animals)
+        public void CountDiedAnimals(List<Animal> animals)
         {
-            if (!animals.Any())
-            {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
-            }
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
 
             var diedAnimals = from animal in animals
                 group animal by animal.AnimalKind
@@ -154,6 +135,8 @@ namespace Controll_of_the_Zoo
                     Kind = listAnimals.Key
                 };
 
+            if (!IsAnyAnimals(diedAnimals, "There is no died animals.")) return;
+
             Console.WriteLine("Died animals grouped by kind:");
             foreach (var diedAnimal in diedAnimals)
             {
@@ -161,53 +144,45 @@ namespace Controll_of_the_Zoo
             }
         }
 
-        public static void WolfsAndBearsHealthMore3(List<Animal> animals)
+        public void WolfsAndBearsHealthMore3(List<Animal> animals)
         {
-            if (!animals.Any())
-            {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
-            }
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
+
             var bearsAndWolfs = animals
                 .Where(animal => (animal.AnimalKind == "wolf" || animal.AnimalKind == "bear") &&
-                                 animal.CurrentHealth > 3).Select(animal => animal);
+                                 animal.CurrentHealth > 3);
+
+            if (!IsAnyAnimals(bearsAndWolfs, "There is no wolfs or bears with health more than 3.")) return;
+
             Console.WriteLine("Wolfs and bears with health more than 3:");
             ShowAnimals(bearsAndWolfs);
         }
 
-        public static void MaxMinHealthAnimals(List<Animal> animals)
+        public void MaxMinHealthAnimals(List<Animal> animals)
         {
-            if (!animals.Any())
-            {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
-            }
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
 
             var maxMinHlthAnimals = animals.Select(animal => new
             {
                 MaxHealth = animals
                     .Where(oneAnimal => oneAnimal.CurrentHealth == animals.Max(animalMax => animalMax.CurrentHealth))
-                    .Select(neededAnimal => neededAnimal).OrderBy(key => key.AnimalName).First(),
+                    .OrderBy(key => key.AnimalName).First(),
                 MinHealth = animals
                     .Where(oneAnimal => oneAnimal.CurrentHealth == animals.Min(animalMin => animalMin.CurrentHealth))
-                    .Select(neededAnimal => neededAnimal).OrderBy(key => key.AnimalName).First()
+                    .OrderBy(key => key.AnimalName).First()
             }).First();
 
             Console.WriteLine(
-                $"Animal with max health:\n\t{maxMinHlthAnimals.MaxHealth};\nanimal with min health:\n\t{maxMinHlthAnimals.MinHealth}.\n");
+                $"Animal with max health:\n\t{maxMinHlthAnimals.MaxHealth};\nanimal with min health:\n\t{maxMinHlthAnimals.MinHealth}.");
         }
 
-        public static void AverageHealth(List<Animal> animals)
+        public void AverageHealth(List<Animal> animals)
         {
-            if (!animals.Any())
-            {
-                Console.WriteLine("There is no animals in the Zoo.");
-                return;
-            }
+            if (!IsAnyAnimals(animals, "There is no animals in the Zoo.")) return;
 
             var averageHlth = animals.Average(animal => animal.CurrentHealth);
 
-            Console.WriteLine("Average animal health in the Zoo is {0:0.##}.\n", averageHlth);
+            Console.WriteLine("Average animal health in the Zoo is {0:0.##}.", averageHlth);
         }
     }
 }

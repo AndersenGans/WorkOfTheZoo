@@ -15,6 +15,7 @@ namespace Controll_of_the_Zoo
             try
             {
                 List<Animal> Animals = new List<Animal>();
+                WorkWithLINQ workWithLinq = new WorkWithLINQ();
                 bool areAnimalsAdded = false;
 
                 Console.WriteLine("Some help for you:");
@@ -29,7 +30,7 @@ namespace Controll_of_the_Zoo
                                      "\n\t-to clean console write 'clean'." +
                                      "\n\t-to exit write 'exit'." +
                                      "\n\t-to add animals to test write 'test'." +
-                                     "\n\t-to show all animals write 'show'" +
+                                     "\n\t-to show all animals write 'show'." +
                                      "\nLinq commands:" +
                                      "\n\t-write 'groupByKind' to group animals by kind." +
                                      "\n\t-write 'selectByCond' to select animals by concrete condition." +
@@ -40,7 +41,7 @@ namespace Controll_of_the_Zoo
                                      "\n\t-write 'diedAnim' to select died animals grouped by kind." +
                                      "\n\t-write 'wolfBearHlth' to select wolfs and bears with health more than 3." +
                                      "\n\t-write 'maxMinHlth' to select animals with max and min health." +
-                                     "\n\t-write 'avgHlth' to get animal average health in the Zoo.\n";
+                                     "\n\t-write 'avgHlth' to get animals average health in the Zoo.\n";
                 Console.Write(helpMessage);
                 while (true)
                 {
@@ -98,38 +99,38 @@ namespace Controll_of_the_Zoo
                             AddNewAnimalsForTest.AddNewAnimals(Animals);
                             break;
                         case "show":
-                            WorkWithLINQ.ShowAnimals(Animals);
+                            workWithLinq.ShowAnimals(Animals);
                             break;
                         case "groupByKind":
-                            WorkWithLINQ.GroupByKindOfAnimals(Animals);
+                            workWithLinq.GroupByKindOfAnimals(Animals);
                             break;
                         case "selectByCond":
-                            WorkWithLINQ.AnimalByCondition(Animals, SelectCondition());
+                            workWithLinq.AnimalByCondition(Animals, SelectCondition());
                             break;
                         case "sickTigers":
-                            WorkWithLINQ.TigersAreIll(Animals);
+                            workWithLinq.TigersAreIll(Animals);
                             break;
                         case "findEleph":
                             Console.Write("Write animal name: ");
-                            WorkWithLINQ.SelectConcreteElephant(Animals, Console.ReadLine());
+                            workWithLinq.SelectConcreteElephant(Animals, Console.ReadLine());
                             break;
                         case "hungryAnim":
-                            WorkWithLINQ.HungryAnimals(Animals);
+                            workWithLinq.HungryAnimals(Animals);
                             break;
                         case "healthyAnim":
-                            WorkWithLINQ.MostHealthyAnimalsByKind(Animals);
+                            workWithLinq.MostHealthyAnimalsByKind(Animals);
                             break;
                         case "diedAnim":
-                            WorkWithLINQ.CountDiedAnimals(Animals);
+                            workWithLinq.CountDiedAnimals(Animals);
                             break;
                         case "wolfBearHlth":
-                            WorkWithLINQ.WolfsAndBearsHealthMore3(Animals);
+                            workWithLinq.WolfsAndBearsHealthMore3(Animals);
                             break;
                         case "maxMinHlth":
-                            WorkWithLINQ.MaxMinHealthAnimals(Animals);
+                            workWithLinq.MaxMinHealthAnimals(Animals);
                             break;
                         case "avgHlth":
-                            WorkWithLINQ.AverageHealth(Animals);
+                            workWithLinq.AverageHealth(Animals);
                             break;
                         default:
                             Console.WriteLine("Unknown command. Write 'help' if you don't know commands.");
@@ -159,7 +160,7 @@ namespace Controll_of_the_Zoo
                 case "ill": return Animal.Condition.IsIll;
                 case "dead": return Animal.Condition.WasDead;
                 default:
-                    Console.WriteLine("Unknown command. Write 'help' if you don't know commands. We selected 'full'.");
+                    Console.WriteLine("Unknown command. Write 'full', or 'hungry', or 'ill', or 'dead'. We selected 'full'.");
                     return Animal.Condition.IsFull;
             }
         }
