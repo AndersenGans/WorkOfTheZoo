@@ -7,8 +7,13 @@ namespace Controll_of_the_Zoo
 {
     public static class WorkWithLINQ
     {
-        private static void ShowAnimals<T>(IEnumerable<T> animals)
+        public static void ShowAnimals<T>(IEnumerable<T> animals)
         {
+            if (!animals.Any())
+            {
+                Console.WriteLine("There is no animals in the Zoo.");
+                return;
+            }
             foreach (var animal in animals)
             {
                 Console.WriteLine($"\t{animal}");
@@ -139,21 +144,70 @@ namespace Controll_of_the_Zoo
             }
 
             var diedAnimals = from animal in animals
-                              group animal by animal.AnimalKind
+                group animal by animal.AnimalKind
                 into listAnimals
-                              select new
-                              {
-                                  Count = (from oneAnimal in listAnimals
-                                           where oneAnimal.AnimalCondition == Animal.Condition.WasDead
-                                           select oneAnimal).Count(),
-                                  Kind = listAnimals.Key
-                              };
+                select new
+                {
+                    Count = (from oneAnimal in listAnimals
+                        where oneAnimal.AnimalCondition == Animal.Condition.WasDead
+                        select oneAnimal).Count(),
+                    Kind = listAnimals.Key
+                };
 
             Console.WriteLine("Died animals grouped by kind:");
             foreach (var diedAnimal in diedAnimals)
             {
                 Console.WriteLine($"kind: {diedAnimal.Kind} => count of died: {diedAnimal.Count}");
             }
+        }
+
+        public static void WolfsAndBearsHealthMore3(List<Animal> animals)
+        {
+            if (!animals.Any())
+            {
+                Console.WriteLine("There is no animals in the Zoo.");
+                return;
+            }
+            var bearsAndWolfs = animals
+                .Where(animal => (animal.AnimalKind == "wolf" || animal.AnimalKind == "bear") &&
+                                 animal.CurrentHealth > 3).Select(animal => animal);
+            Console.WriteLine("Wolfs and bears with health more than 3:");
+            ShowAnimals(bearsAndWolfs);
+        }
+
+        public static void MaxMinHealthAnimals(List<Animal> animals)
+        {
+            if (!animals.Any())
+            {
+                Console.WriteLine("There is no animals in the Zoo.");
+                return;
+            }
+
+            var maxMinHlthAnimals = animals.Select(animal => new
+            {
+                MaxHealth = animals
+                    .Where(oneAnimal => oneAnimal.CurrentHealth == animals.Max(animalMax => animalMax.CurrentHealth))
+                    .Select(neededAnimal => neededAnimal).OrderBy(key => key.AnimalName).First(),
+                MinHealth = animals
+                    .Where(oneAnimal => oneAnimal.CurrentHealth == animals.Min(animalMin => animalMin.CurrentHealth))
+                    .Select(neededAnimal => neededAnimal).OrderBy(key => key.AnimalName).First()
+            }).First();
+
+            Console.WriteLine(
+                $"Animal with max health:\n\t{maxMinHlthAnimals.MaxHealth};\nanimal with min health:\n\t{maxMinHlthAnimals.MinHealth}.\n");
+        }
+
+        public static void AverageHealth(List<Animal> animals)
+        {
+            if (!animals.Any())
+            {
+                Console.WriteLine("There is no animals in the Zoo.");
+                return;
+            }
+
+            var averageHlth = animals.Average(animal => animal.CurrentHealth);
+
+            Console.WriteLine("Average animal health in the Zoo is {0:0.##}.\n", averageHlth);
         }
     }
 }

@@ -18,19 +18,29 @@ namespace Controll_of_the_Zoo
                 bool areAnimalsAdded = false;
 
                 Console.WriteLine("Some help for you:");
-                string helpMessage = "\n\t-write 'add' to add an animal; \n\t-write 'feed' to feed an animal; \n" +
-                                     "\t-write 'cure' to cure an animal;\n\t-write 'delete' to delete an animal.\n" +
-                                     "\t-to open Zoo write 'run'.\n\t-to close Zoo write 'close'.\n\t-to get help write 'help'." +
-                                     "\n\t-to clean console write 'clean'.\n\t-to exit write 'exit'.\n" +
-                                     "\t-to add animals to test write 'test'\n\n" +
-                                     "Linq commands:\n" +
-                                     "\t-write 'groupByKind' to group anamals by kind.\n" +
-                                     "\t-write 'selectByCond' to select animals by concrete condition.\n" +
-                                     "\t-write 'sickTigers' to select sick tigers.\n" +
-                                     "\t-write 'findEleph' to find elephants by name.\n" +
-                                     "\t-wrute 'hungryAnim' to select hungry animals.\n" +
-                                     "\t-write 'healthyAnim' to select most healthy animals grouped by kind.\n" +
-                                     "\t-write 'diedAnim' to sekect died animals grouped by kind.\n";
+                string helpMessage = "\nMain commands:" +
+                                     "\n\t-to add an animal write 'add'." +
+                                     "\n\t-to feed an animal write 'feed'." +
+                                     "\n\t-to cure an animal write 'cure'." +
+                                     "\n\t-to delete an animal write 'delete'." +
+                                     "\n\t-to open Zoo write 'run'." +
+                                     "\n\t-to close Zoo write 'close'." +
+                                     "\n\t-to get help write 'help'." +
+                                     "\n\t-to clean console write 'clean'." +
+                                     "\n\t-to exit write 'exit'." +
+                                     "\n\t-to add animals to test write 'test'." +
+                                     "\n\t-to show all animals write 'show'" +
+                                     "\nLinq commands:" +
+                                     "\n\t-write 'groupByKind' to group animals by kind." +
+                                     "\n\t-write 'selectByCond' to select animals by concrete condition." +
+                                     "\n\t-write 'sickTigers' to select sick tigers." +
+                                     "\n\t-write 'findEleph' to find elephants by name." +
+                                     "\n\t-write 'hungryAnim' to select hungry animals." +
+                                     "\n\t-write 'healthyAnim' to select most healthy animals grouped by kind." +
+                                     "\n\t-write 'diedAnim' to select died animals grouped by kind." +
+                                     "\n\t-write 'wolfBearHlth' to select wolfs and bears with health more than 3." +
+                                     "\n\t-write 'maxMinHlth' to select animals with max and min health." +
+                                     "\n\t-write 'avgHlth' to get animal average health in the Zoo.\n";
                 Console.Write(helpMessage);
                 while (true)
                 {
@@ -87,6 +97,9 @@ namespace Controll_of_the_Zoo
                         case "test":
                             AddNewAnimalsForTest.AddNewAnimals(Animals);
                             break;
+                        case "show":
+                            WorkWithLINQ.ShowAnimals(Animals);
+                            break;
                         case "groupByKind":
                             WorkWithLINQ.GroupByKindOfAnimals(Animals);
                             break;
@@ -108,6 +121,15 @@ namespace Controll_of_the_Zoo
                             break;
                         case "diedAnim":
                             WorkWithLINQ.CountDiedAnimals(Animals);
+                            break;
+                        case "wolfBearHlth":
+                            WorkWithLINQ.WolfsAndBearsHealthMore3(Animals);
+                            break;
+                        case "maxMinHlth":
+                            WorkWithLINQ.MaxMinHealthAnimals(Animals);
+                            break;
+                        case "avgHlth":
+                            WorkWithLINQ.AverageHealth(Animals);
                             break;
                         default:
                             Console.WriteLine("Unknown command. Write 'help' if you don't know commands.");
@@ -139,7 +161,6 @@ namespace Controll_of_the_Zoo
                 default:
                     Console.WriteLine("Unknown command. Write 'help' if you don't know commands. We selected 'full'.");
                     return Animal.Condition.IsFull;
-                    break;
             }
         }
 
